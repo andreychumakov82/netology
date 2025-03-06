@@ -5,28 +5,29 @@ from pyspark.sql import Window
 -- задание 1
 -- Выберите 15 стран с наибольшим процентом переболевших на 31 марта (в выходящем датасете необходимы колонки: iso_code, страна, процент переболевших)
 
-df_1 = df.select('iso_code', 'location', F.col('total_cases_per_million')/1000).where((F.col('date')=='2020-03-31') & (~F.col('iso_code').like('OWID_%'))).sort(F.col('total_cases_per_million').desc())
+df_1 = df.select('iso_code', 'location', F.col('total_cases_per_million')/1000).where((F.col('date')=='2021-03-31') & (~F.col('iso_code').like('OWID_%'))).sort(F.col('total_cases_per_million').desc())
 
 df_1.withColumnRenamed("(total_cases_per_million / 1000)","процент переболевших").withColumnRenamed("location","страна").show(15)
 
-+--------+-------------+--------------------+
+
++--------+-------------+--------------------+                                   
 |iso_code|       страна|процент переболевших|
 +--------+-------------+--------------------+
-|     VAT|      Vatican|            7.416564|
-|     SMR|   San Marino|            6.953857|
-|     AND|      Andorra|            4.866369|
-|     LUX|   Luxembourg|  3.4793670000000003|
-|     ISL|      Iceland|            3.326007|
-|     ESP|        Spain|            2.051619|
-|     CHE|  Switzerland|            1.918629|
-|     LIE|Liechtenstein|            1.783045|
-|     ITA|        Italy|            1.749732|
-|     MCO|       Monaco|            1.325043|
-|     AUT|      Austria|            1.130307|
-|     BEL|      Belgium|             1.10228|
-|     DEU|      Germany|            0.857062|
-|     NOR|       Norway|            0.856077|
-|     FRA|       France|            0.767128|
+|     AND|      Andorra|          155.439073|
+|     MNE|   Montenegro|  145.23725399999998|
+|     CZE|      Czechia|          143.088484|
+|     SMR|   San Marino|          139.371796|
+|     SVN|     Slovenia|  103.70805800000001|
+|     LUX|   Luxembourg|           98.473424|
+|     ISR|       Israel|            96.25106|
+|     USA|United States|   92.03011000000001|
+|     SRB|       Serbia|           88.263286|
+|     BHR|      Bahrain|           84.888601|
+|     PAN|       Panama|           82.287391|
+|     PRT|     Portugal|           80.586997|
+|     EST|      Estonia|           80.226816|
+|     SWE|       Sweden|   79.69744299999999|
+|     LTU|    Lithuania|   79.38864699999999|
 +--------+-------------+--------------------+
 
 
